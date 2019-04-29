@@ -20,7 +20,7 @@ getData('https://randomuser.me/api/?results=12&nat=gb,us,au,ca,nz&noinfo')
     .then(data => data.results.forEach(result => {
 
         $('#gallery').append(`
-        <div class="card" id="${result.dob.date}">
+        <div class="card">
             <div class="card-img-container">
                 <img class="card-img" src="${result.picture.medium}" alt="profile picture">
             </div>
