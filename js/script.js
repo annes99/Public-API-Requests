@@ -101,19 +101,25 @@ $(document).on('click', '#modal-prev', (event) => {
 $(document).on('click', '#modal-close-btn', () => $('.modal-container').hide());
 
 // on submit, get the search input from user
-// find a match for search input in card div's whith it's index
-// if there's a match show that gallery element, if not alert a message 
+// find a match for search input in card div's that includes search term
+// if there's a match show that .card element, if not alert a message 
 $(document).on('submit', function (event) {
     event.preventDefault();
     const $searchValue = $('#search-input').val().toLowerCase();
+    $('#gallery').children().hide();
 
-    let $value = $('#gallery').find(`.card:contains(${$searchValue})`).index();
-    if ($value >= 0) {
-        $('#gallery').children().hide();
-        $('#gallery').children().eq($value).show();
-    } else if ($value < 0) {
+    let search = 0;
+    for(let i = 1; i < $('.card').length + 1 ; i++){
+        if ($(`.card:nth-child(${i}) #name`).text().includes(`${$searchValue}`)){
+            $(`.card:nth-child(${i})`).show();
+            search++;
+        } 
+    }
+
+    if(search === 0) {
         alert(`No mach for ${$searchValue}`);
         $('#gallery').children().show();
+        $('#search-input').val('');
     }
 
 });
